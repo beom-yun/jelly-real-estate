@@ -17,7 +17,7 @@ const config: Config = {
   },
   plugins: [require("daisyui")],
   daisyui: {
-    themes: ["light", "dark", "luxury"],
+    themes: ["light", "dark", "retro"],
   },
 };
 export default config;
