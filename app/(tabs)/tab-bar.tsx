@@ -15,15 +15,21 @@ export default function TabBar() {
       clickedIcon: SolidBuildingIcon,
       title: "내 리스트",
     },
+    {
+      path: "/profile",
+      unClickedIcon: OutlineBuildingIcon,
+      clickedIcon: SolidBuildingIcon,
+      title: "마이페이지",
+    },
   ];
 
   return (
-    <div className="fixed bottom-0 mx-auto grid w-full max-w-screen-sm grid-cols-5 border-t border-t-base-300 bg-base-200">
+    <div className="btm-nav mx-auto max-w-screen-md">
       {tabs.map((tab, index) => (
         <Link
           key={index}
           href={tab.path}
-          className="flex flex-col items-center p-2.5 *:text-neutral"
+          className={pathname === tab.path ? "active" : ""}
         >
           {pathname === tab.path ? (
             <tab.clickedIcon className="size-5" />

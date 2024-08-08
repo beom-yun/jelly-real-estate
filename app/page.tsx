@@ -9,7 +9,7 @@ export default function Home() {
         <span className="text-black">이렇게</span>
         <span className="text-black">쉬웠어?</span>
       </div>
-      <Link href="/properties" className="btn btn-primary w-full">
+      <Link href="/properties" className="btn btn-secondary w-full">
         시작하기
       </Link>
     </div>

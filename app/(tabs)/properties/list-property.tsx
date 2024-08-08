@@ -18,7 +18,7 @@ export default function ListProperty({
       href={`/properties/${id}`}
       className="flex gap-5 rounded-box p-2.5 transition-all hover:bg-base-200"
     >
-      <div className="size-28 rounded-box bg-primary">{photo}</div>
+      <div className="size-28 rounded-box bg-secondary">{photo}</div>
       <div className="flex flex-col">
         <span>{title}</span>
         <span>{address}</span>
