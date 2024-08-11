@@ -1,10 +1,51 @@
+import { PlusIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import Image from "next/image";
+
 export default function PropertyAddPage() {
+  const images = [
+    {
+      id: 1,
+      src: "https://img.daisyui.com/images/stock/photo-1559703248-dcaaec9fab78.webp",
+      alt: "icecream",
+    },
+    {
+      id: 2,
+      src: "https://img.daisyui.com/images/stock/photo-1565098772267-60af42b81ef2.webp",
+      alt: "grape",
+    },
+    {
+      id: 3,
+      src: "https://img.daisyui.com/images/stock/photo-1572635148818-ef6fd45eb394.webp",
+      alt: "lemon",
+    },
+    {
+      id: 4,
+      src: "https://img.daisyui.com/images/stock/photo-1494253109108-2e30c049369b.webp",
+      alt: "bluelemon",
+    },
+    {
+      id: 5,
+      src: "https://img.daisyui.com/images/stock/photo-1550258987-190a2d41a8ba.webp",
+      alt: "pineapple",
+    },
+    {
+      id: 6,
+      src: "https://img.daisyui.com/images/stock/photo-1559181567-c3190ca9959b.webp",
+      alt: "cherry",
+    },
+    {
+      id: 7,
+      src: "https://img.daisyui.com/images/stock/photo-1601004890684-d8cbf643f5f2.webp",
+      alt: "strawberry",
+    },
+  ];
+
   return (
     <div className="flex flex-col gap-10 p-5">
       <span className="text-4xl font-bold">새 부동산</span>
-      <form className="flex flex-col gap-8">
+      <form className="join join-vertical flex flex-col">
         {/* 1.기본사항 */}
-        <div className="collapse collapse-arrow rounded-box bg-base-200 text-xl font-bold">
+        <div className="collapse join-item collapse-arrow rounded-box border border-base-300 bg-base-200/50 text-xl font-bold">
           <input type="checkbox" name="accordion" defaultChecked />
           <span className="collapse-title">기본사항</span>
           <div className="collapse-content flex flex-col gap-2.5">
@@ -175,7 +216,7 @@ export default function PropertyAddPage() {
         </div>
 
         {/* 2.세부사항 */}
-        <div className="collapse collapse-arrow rounded-box bg-base-200 text-xl font-bold">
+        <div className="collapse join-item collapse-arrow rounded-box border border-base-300 bg-base-200/50 text-xl font-bold">
           <input type="checkbox" name="accordion" />
           <span className="collapse-title">세부사항</span>
           <div className="collapse-content flex flex-col gap-2.5">
@@ -278,17 +319,46 @@ export default function PropertyAddPage() {
         </div>
 
         {/* 3.최종평가 */}
-        <div className="collapse collapse-arrow rounded-box bg-base-200 text-xl font-bold">
+        <div className="collapse join-item collapse-arrow rounded-box border border-base-300 bg-base-200/50 text-xl font-bold">
           <input type="checkbox" name="accordion" />
           <span className="collapse-title">최종평가</span>
-          <div className="collapse-content flex flex-col gap-2.5"></div>
+          <div className="collapse-content flex flex-col gap-2.5">
+            <textarea
+              className="textarea textarea-bordered h-80"
+              placeholder="최종평가"
+            ></textarea>
+          </div>
         </div>
 
         {/* 4.사진 */}
-        <div className="collapse collapse-arrow rounded-box bg-base-200 text-xl font-bold">
+        <div className="collapse join-item collapse-arrow rounded-box border border-base-300 bg-base-200/50 text-xl font-bold">
           <input type="checkbox" name="accordion" />
           <span className="collapse-title">사진</span>
-          <div className="collapse-content flex flex-col gap-2.5"></div>
+          <div className="collapse-content flex flex-col gap-2.5 overflow-hidden">
+            <div className="carousel rounded-box">
+              {images.map((image) => (
+                <div
+                  key={image.id}
+                  className="carousel-item relative size-[200px] overflow-hidden"
+                >
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    width={200}
+                    height={200}
+                    className="object-cover"
+                  />
+                  <button className="btn btn-circle btn-ghost btn-sm absolute right-2 top-2">
+                    <XMarkIcon className="size-5" />
+                  </button>
+                </div>
+              ))}
+            </div>
+            <button className="btn btn-accent">
+              <PlusIcon className="size-5" />
+              <span>사진 추가하기</span>
+            </button>
+          </div>
         </div>
       </form>
     </div>
