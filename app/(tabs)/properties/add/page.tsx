@@ -43,6 +43,7 @@ export default function PropertyAddPage() {
   return (
     <div className="flex flex-col gap-10 p-5">
       <span className="text-4xl font-bold">새 부동산</span>
+
       <form className="join join-vertical flex flex-col">
         {/* 1.기본사항 */}
         <div className="collapse join-item collapse-arrow rounded-box border border-base-300 bg-base-200/50 text-xl font-bold">
@@ -56,18 +57,56 @@ export default function PropertyAddPage() {
               <div className="flex flex-col gap-1">
                 <span className="text-lg font-bold">분류</span>
                 <div className="flex items-center justify-center gap-2">
-                  <div className="btn w-[32.45%] bg-base-100">매매</div>
-                  <div className="btn w-[32.45%] bg-base-100">전세</div>
-                  <div className="btn w-[32.45%] bg-base-100">월세</div>
+                  <label className="w-full">
+                    <input
+                      name="radioType"
+                      value="dealing"
+                      type="radio"
+                      className="peer hidden"
+                    />
+                    <div className="btn w-full bg-base-100 peer-checked:bg-base-300">
+                      매매
+                    </div>
+                  </label>
+                  <label className="w-full">
+                    <input
+                      name="radioType"
+                      value="lease"
+                      type="radio"
+                      className="peer hidden"
+                    />
+                    <div className="btn w-full bg-base-100 peer-checked:bg-base-300">
+                      전세
+                    </div>
+                  </label>
+                  <label className="w-full">
+                    <input
+                      name="radioType"
+                      value="monthlyRent"
+                      type="radio"
+                      className="peer hidden"
+                    />
+                    <div className="btn w-full bg-base-100 peer-checked:bg-base-300">
+                      월세
+                    </div>
+                  </label>
                 </div>
               </div>
               <label className="flex flex-col gap-1">
                 <span className="text-lg font-bold">보증금</span>
-                <input type="number" className="input input-bordered" />
+                <input
+                  name="deposit"
+                  type="number"
+                  className="input input-bordered"
+                />
               </label>
               <label className="flex flex-col gap-1">
                 <span className="text-lg font-bold">관리비</span>
-                <input type="number" className="input input-bordered" />
+                <input
+                  name="maintenanceCost"
+                  type="number"
+                  className="input input-bordered"
+                />
               </label>
             </div>
             <div className="flex flex-col gap-2.5 px-2.5">
@@ -76,11 +115,19 @@ export default function PropertyAddPage() {
               </span>
               <label className="flex flex-col gap-1">
                 <span className="text-lg font-bold">주소</span>
-                <input type="text" className="input input-bordered" />
+                <input
+                  name="address"
+                  type="text"
+                  className="input input-bordered"
+                />
               </label>
               <label className="flex flex-col gap-1">
                 <span className="text-lg font-bold">연식</span>
-                <input type="text" className="input input-bordered" />
+                <input
+                  name="year"
+                  type="text"
+                  className="input input-bordered"
+                />
               </label>
             </div>
             <div className="flex flex-col gap-2.5 px-2.5">
@@ -90,11 +137,19 @@ export default function PropertyAddPage() {
               <div className="flex gap-5">
                 <label className="flex w-full flex-col gap-1">
                   <span className="text-lg font-bold">공용(평수)</span>
-                  <input type="number" className="input input-bordered" />
+                  <input
+                    name="CommonArea"
+                    type="number"
+                    className="input input-bordered"
+                  />
                 </label>
                 <label className="flex w-full flex-col gap-1">
                   <span className="text-lg font-bold">전용(평수)</span>
-                  <input type="number" className="input input-bordered" />
+                  <input
+                    name="dedicatedArea"
+                    type="number"
+                    className="input input-bordered"
+                  />
                 </label>
               </div>
             </div>
@@ -105,31 +160,55 @@ export default function PropertyAddPage() {
               <div className="flex gap-5">
                 <label className="flex w-full flex-col gap-1">
                   <span className="text-lg font-bold">거실</span>
-                  <input type="text" className="input input-bordered" />
+                  <input
+                    name="livingRoom"
+                    type="text"
+                    className="input input-bordered"
+                  />
                 </label>
                 <label className="flex w-full flex-col gap-1">
                   <span className="text-lg font-bold">방</span>
-                  <input type="text" className="input input-bordered" />
+                  <input
+                    name="room"
+                    type="text"
+                    className="input input-bordered"
+                  />
                 </label>
               </div>
               <div className="flex gap-5">
                 <label className="flex w-full flex-col gap-1">
                   <span className="text-lg font-bold">화장실</span>
-                  <input type="text" className="input input-bordered" />
+                  <input
+                    name="toilet"
+                    type="text"
+                    className="input input-bordered"
+                  />
                 </label>
                 <label className="flex w-full flex-col gap-1">
                   <span className="text-lg font-bold">베란다</span>
-                  <input type="text" className="input input-bordered" />
+                  <input
+                    name="veranda"
+                    type="text"
+                    className="input input-bordered"
+                  />
                 </label>
               </div>
               <div className="flex gap-5">
                 <label className="flex w-full flex-col gap-1">
                   <span className="text-lg font-bold">주차장</span>
-                  <input type="text" className="input input-bordered" />
+                  <input
+                    name="parkingLot"
+                    type="text"
+                    className="input input-bordered"
+                  />
                 </label>
                 <label className="flex w-full flex-col gap-1">
                   <span className="text-lg font-bold">기타</span>
-                  <input type="text" className="input input-bordered" />
+                  <input
+                    name="etc"
+                    type="text"
+                    className="input input-bordered"
+                  />
                 </label>
               </div>
             </div>
@@ -138,14 +217,34 @@ export default function PropertyAddPage() {
                 5. 거래
               </span>
               <div className="flex items-center justify-center gap-2">
-                <div className="btn w-[49.5%] bg-base-100">대출 가능 여부</div>
-                <div className="btn w-[49.5%] bg-base-100">
-                  전입신고 가능 여부
-                </div>
+                <label className="w-full">
+                  <input
+                    name="loanAvailability"
+                    type="checkbox"
+                    className="peer hidden"
+                  />
+                  <div className="btn w-full bg-base-100 peer-checked:bg-base-300">
+                    대출 가능 여부
+                  </div>
+                </label>
+                <label className="w-full">
+                  <input
+                    name="moveInAvailability"
+                    type="checkbox"
+                    className="peer hidden"
+                  />
+                  <div className="btn w-full bg-base-100 peer-checked:bg-base-300">
+                    전입신고 가능 여부
+                  </div>
+                </label>
               </div>
               <label className="flex w-full flex-col gap-1">
                 <span className="text-lg font-bold">계약 기간</span>
-                <input type="text" className="input input-bordered" />
+                <input
+                  name="contractPeriod"
+                  type="text"
+                  className="input input-bordered"
+                />
               </label>
             </div>
             <div className="flex flex-col gap-2.5 px-2.5">
@@ -153,13 +252,58 @@ export default function PropertyAddPage() {
                 6. 관리비 포함
               </span>
               <div className="flex items-center justify-center gap-2">
-                <div className="btn w-[32.45%] bg-base-100">가스</div>
-                <div className="btn w-[32.45%] bg-base-100">전기</div>
-                <div className="btn w-[32.45%] bg-base-100">수도</div>
+                <label className="w-full">
+                  <input
+                    name="gasFee"
+                    type="checkbox"
+                    className="peer hidden"
+                  />
+                  <div className="btn w-full bg-base-100 peer-checked:bg-base-300">
+                    가스
+                  </div>
+                </label>
+                <label className="w-full">
+                  <input
+                    name="electricityFee"
+                    type="checkbox"
+                    className="peer hidden"
+                  />
+                  <div className="btn w-full bg-base-100 peer-checked:bg-base-300">
+                    전기
+                  </div>
+                </label>
+                <label className="w-full">
+                  <input
+                    name="waterFee"
+                    type="checkbox"
+                    className="peer hidden"
+                  />
+                  <div className="btn w-full bg-base-100 peer-checked:bg-base-300">
+                    수도
+                  </div>
+                </label>
               </div>
               <div className="flex items-center justify-center gap-2">
-                <div className="btn w-[49.5%] bg-base-100">청소</div>
-                <div className="btn w-[49.5%] bg-base-100">주차</div>
+                <label className="w-full">
+                  <input
+                    name="cleaningFee"
+                    type="checkbox"
+                    className="peer hidden"
+                  />
+                  <div className="btn w-full bg-base-100 peer-checked:bg-base-300">
+                    청소
+                  </div>
+                </label>
+                <label className="w-full">
+                  <input
+                    name="parkingFee"
+                    type="checkbox"
+                    className="peer hidden"
+                  />
+                  <div className="btn w-full bg-base-100 peer-checked:bg-base-300">
+                    주차
+                  </div>
+                </label>
               </div>
               <label className="flex w-full flex-col gap-1">
                 <span className="text-lg font-bold">기타</span>
@@ -171,7 +315,11 @@ export default function PropertyAddPage() {
                 7. 입주 가능일
               </span>
               <label className="flex w-full flex-col gap-1">
-                <input type="date" className="input input-bordered" />
+                <input
+                  name="moveInDate"
+                  type="date"
+                  className="input input-bordered"
+                />
               </label>
             </div>
             <div className="flex flex-col gap-2.5 px-2.5">
@@ -179,7 +327,11 @@ export default function PropertyAddPage() {
                 8. 옵션
               </span>
               <label className="flex w-full flex-col gap-1">
-                <input type="text" className="input input-bordered" />
+                <input
+                  name="option"
+                  type="text"
+                  className="input input-bordered"
+                />
               </label>
             </div>
             <div className="flex flex-col gap-2.5 px-2.5">
@@ -187,9 +339,36 @@ export default function PropertyAddPage() {
                 9. 냉난방
               </span>
               <div className="flex items-center justify-center gap-2">
-                <div className="btn w-[32.45%] bg-base-100">에어컨</div>
-                <div className="btn w-[32.45%] bg-base-100">보일러</div>
-                <div className="btn w-[32.45%] bg-base-100">온수</div>
+                <label className="w-full">
+                  <input
+                    name="airConditioner"
+                    type="checkbox"
+                    className="peer hidden"
+                  />
+                  <div className="btn w-full bg-base-100 peer-checked:bg-base-300">
+                    에어컨
+                  </div>
+                </label>
+                <label className="w-full">
+                  <input
+                    name="boiler"
+                    type="checkbox"
+                    className="peer hidden"
+                  />
+                  <div className="btn w-full bg-base-100 peer-checked:bg-base-300">
+                    보일러
+                  </div>
+                </label>
+                <label className="w-full">
+                  <input
+                    name="warmWater"
+                    type="checkbox"
+                    className="peer hidden"
+                  />
+                  <div className="btn w-full bg-base-100 peer-checked:bg-base-300">
+                    온수
+                  </div>
+                </label>
               </div>
             </div>
             <div className="flex flex-col gap-2.5 px-2.5">
@@ -197,9 +376,36 @@ export default function PropertyAddPage() {
                 10. 쓰레기 처리장
               </span>
               <div className="flex items-center justify-center gap-2">
-                <div className="btn w-[32.45%] bg-base-100">일반 쓰레기</div>
-                <div className="btn w-[32.45%] bg-base-100">음식물 쓰레기</div>
-                <div className="btn w-[32.45%] bg-base-100">재활용 쓰레기</div>
+                <label className="w-full">
+                  <input
+                    name="generalWaste"
+                    type="checkbox"
+                    className="peer hidden"
+                  />
+                  <div className="btn w-full bg-base-100 peer-checked:bg-base-300">
+                    일반 쓰레기
+                  </div>
+                </label>
+                <label className="w-full">
+                  <input
+                    name="foodWaste"
+                    type="checkbox"
+                    className="peer hidden"
+                  />
+                  <div className="btn w-full bg-base-100 peer-checked:bg-base-300">
+                    음식물 쓰레기
+                  </div>
+                </label>
+                <label className="w-full">
+                  <input
+                    name="recyclableWaste"
+                    type="checkbox"
+                    className="peer hidden"
+                  />
+                  <div className="btn w-full bg-base-100 peer-checked:bg-base-300">
+                    재활용 쓰레기
+                  </div>
+                </label>
               </div>
             </div>
             <div className="flex flex-col gap-2.5 px-2.5">
@@ -207,9 +413,32 @@ export default function PropertyAddPage() {
                 11. 보안
               </span>
               <div className="flex items-center justify-center gap-2">
-                <div className="btn w-[32.45%] bg-base-100">공동현관</div>
-                <div className="btn w-[32.45%] bg-base-100">CCTV</div>
-                <div className="btn w-[32.45%] bg-base-100">경비실</div>
+                <label className="w-full">
+                  <input
+                    name="commonEntrance"
+                    type="checkbox"
+                    className="peer hidden"
+                  />
+                  <div className="btn w-full bg-base-100 peer-checked:bg-base-300">
+                    공동현관
+                  </div>
+                </label>
+                <label className="w-full">
+                  <input name="cctv" type="checkbox" className="peer hidden" />
+                  <div className="btn w-full bg-base-100 peer-checked:bg-base-300">
+                    CCTV
+                  </div>
+                </label>
+                <label className="w-full">
+                  <input
+                    name="securityOffice"
+                    type="checkbox"
+                    className="peer hidden"
+                  />
+                  <div className="btn w-full bg-base-100 peer-checked:bg-base-300">
+                    경비실
+                  </div>
+                </label>
               </div>
             </div>
           </div>
@@ -225,14 +454,18 @@ export default function PropertyAddPage() {
                 12. 채광
               </span>
               <label className="flex flex-col gap-1">
-                <input type="text" className="input input-bordered" />
+                <input
+                  name="naturalLighting"
+                  type="text"
+                  className="input input-bordered"
+                />
               </label>
             </div>
             <div className="flex flex-col gap-2.5 px-2.5">
               <span className="divider divider-start text-center text-xl font-bold">
                 13. 방음
               </span>
-              <label className="flex flex-col gap-1">
+              <label nonce="soundproof" className="flex flex-col gap-1">
                 <input type="text" className="input input-bordered" />
               </label>
             </div>
@@ -242,11 +475,19 @@ export default function PropertyAddPage() {
               </span>
               <label className="flex flex-col gap-1">
                 <span className="text-lg font-bold">창문</span>
-                <input type="text" className="input input-bordered" />
+                <input
+                  name="window"
+                  type="text"
+                  className="input input-bordered"
+                />
               </label>
               <label className="flex flex-col gap-1">
                 <span className="text-lg font-bold">환기 시설</span>
-                <input type="text" className="input input-bordered" />
+                <input
+                  name="ventilationFacility"
+                  type="text"
+                  className="input input-bordered"
+                />
               </label>
             </div>
             <div className="flex flex-col gap-2.5 px-2.5">
@@ -254,7 +495,11 @@ export default function PropertyAddPage() {
                 15. 수압
               </span>
               <label className="flex flex-col gap-1">
-                <input type="text" className="input input-bordered" />
+                <input
+                  name="waterPressure"
+                  type="text"
+                  className="input input-bordered"
+                />
               </label>
             </div>
             <div className="flex flex-col gap-2.5 px-2.5">
@@ -262,7 +507,11 @@ export default function PropertyAddPage() {
                 16. 배수
               </span>
               <label className="flex flex-col gap-1">
-                <input type="text" className="input input-bordered" />
+                <input
+                  name="drainage"
+                  type="text"
+                  className="input input-bordered"
+                />
               </label>
             </div>
             <div className="flex flex-col gap-2.5 px-2.5">
@@ -270,7 +519,11 @@ export default function PropertyAddPage() {
                 17. 하수구 냄새
               </span>
               <label className="flex flex-col gap-1">
-                <input type="text" className="input input-bordered" />
+                <input
+                  name="drainSmell"
+                  type="text"
+                  className="input input-bordered"
+                />
               </label>
             </div>
             <div className="flex flex-col gap-2.5 px-2.5">
@@ -278,7 +531,11 @@ export default function PropertyAddPage() {
                 18. 조명
               </span>
               <label className="flex flex-col gap-1">
-                <input type="text" className="input input-bordered" />
+                <input
+                  name="lighting"
+                  type="text"
+                  className="input input-bordered"
+                />
               </label>
             </div>
             <div className="flex flex-col gap-2.5 px-2.5">
@@ -286,7 +543,11 @@ export default function PropertyAddPage() {
                 19. 천장, 바닥
               </span>
               <label className="flex flex-col gap-1">
-                <input type="text" className="input input-bordered" />
+                <input
+                  name="ceilingFloor"
+                  type="text"
+                  className="input input-bordered"
+                />
               </label>
             </div>
             <div className="flex flex-col gap-2.5 px-2.5">
@@ -294,9 +555,36 @@ export default function PropertyAddPage() {
                 20. 타일 탈락 여부
               </span>
               <div className="flex items-center justify-center gap-2">
-                <div className="btn w-[32.45%] bg-base-100">부엌</div>
-                <div className="btn w-[32.45%] bg-base-100">화장실</div>
-                <div className="btn w-[32.45%] bg-base-100">현관</div>
+                <label className="w-full">
+                  <input
+                    name="kitchenTile"
+                    type="checkbox"
+                    className="peer hidden"
+                  />
+                  <div className="btn w-full bg-base-100 peer-checked:bg-base-300">
+                    부엌
+                  </div>
+                </label>
+                <label className="w-full">
+                  <input
+                    name="toiletTile"
+                    type="checkbox"
+                    className="peer hidden"
+                  />
+                  <div className="btn w-full bg-base-100 peer-checked:bg-base-300">
+                    화장실
+                  </div>
+                </label>
+                <label className="w-full">
+                  <input
+                    name="entranceTile"
+                    type="checkbox"
+                    className="peer hidden"
+                  />
+                  <div className="btn w-full bg-base-100 peer-checked:bg-base-300">
+                    현관
+                  </div>
+                </label>
               </div>
             </div>
             <div className="flex flex-col gap-2.5 px-2.5">
@@ -304,7 +592,11 @@ export default function PropertyAddPage() {
                 21. 누수
               </span>
               <label className="flex flex-col gap-1">
-                <input type="text" className="input input-bordered" />
+                <input
+                  name="waterLeak"
+                  type="text"
+                  className="input input-bordered"
+                />
               </label>
             </div>
             <div className="flex flex-col gap-2.5 px-2.5">
@@ -312,7 +604,11 @@ export default function PropertyAddPage() {
                 22. 곰팡이
               </span>
               <label className="flex flex-col gap-1">
-                <input type="text" className="input input-bordered" />
+                <input
+                  name="mold"
+                  type="text"
+                  className="input input-bordered"
+                />
               </label>
             </div>
           </div>
@@ -324,6 +620,7 @@ export default function PropertyAddPage() {
           <span className="collapse-title">최종평가</span>
           <div className="collapse-content flex flex-col gap-2.5">
             <textarea
+              name="appraisal"
               className="textarea textarea-bordered h-80"
               placeholder="최종평가"
             ></textarea>
