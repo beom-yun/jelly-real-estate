@@ -1,28 +1,19 @@
 import { PlusIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import ListProperty from "./list-property";
+import db from "@/lib/db";
 
-export default function PropertiesPage() {
-  const properties = [
-    {
-      id: 1,
-      title: "아파트",
-      photo: "abc",
-      address: "인천광역시 미추홀구",
+export default async function PropertiesPage() {
+  const properties = await db.property.findMany({
+    select: {
+      id: true,
+      propertyName: true,
+      transactionType: true,
+      address: true,
+      photos: { select: { id: true, url: true, description: true } },
     },
-    {
-      id: 2,
-      title: "빌라",
-      photo: "abc!",
-      address: "인천광역시 남동구",
-    },
-    {
-      id: 3,
-      title: "다가구주택",
-      photo: "ABCDE",
-      address: "인천광역시 남동구",
-    },
-  ];
+  });
+  console.log(properties);
 
   return (
     <div className="flex flex-col p-5">
@@ -30,9 +21,10 @@ export default function PropertiesPage() {
         <ListProperty
           key={property.id}
           id={property.id}
-          title={property.title}
-          photo={property.photo}
+          title={property.propertyName}
           address={property.address}
+          transactionType={property.transactionType}
+          photos={property.photos}
         />
       ))}
       <Link href="/properties/add" className="btn mt-2.5">

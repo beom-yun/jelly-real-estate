@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,4 +5,79 @@ generator client {
 datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int      @id @default(autoincrement())
+  username   String   @unique
+  email      String?  @unique
+  password   String?
+  phone      String?  @unique
+  avatar     String?
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model Property {
+  id                  Int       @id @default(autoincrement())
+  propertyName        String
+  transactionType     String    @default("sale")
+  deposit             Int?
+  maintenanceCost     Int?
+  address             String?
+  year                String?
+  CommonArea          Int?
+  dedicatedArea       Int?
+  livingRoom          String?
+  room                String?
+  toilet              String?
+  veranda             String?
+  parkingLot          String?
+  etc                 String?
+  loanAvailability    Boolean   @default(false)
+  moveInAvailability  Boolean   @default(false)
+  contractPeriod      String?
+  gasFee              Boolean   @default(false)
+  electricityFee      Boolean   @default(false)
+  waterFee            Boolean   @default(false)
+  cleaningFee         Boolean   @default(false)
+  parkingFee          Boolean   @default(false)
+  etcFee              Boolean   @default(false)
+  moveInDate          DateTime?
+  option              String?
+  airConditioner      Boolean   @default(false)
+  boiler              Boolean   @default(false)
+  warmWater           Boolean   @default(false)
+  generalWaste        Boolean   @default(false)
+  foodWaste           Boolean   @default(false)
+  recyclableWaste     Boolean   @default(false)
+  commonEntrance      Boolean   @default(false)
+  cctv                Boolean   @default(false)
+  securityOffice      Boolean   @default(false)
+  naturalLighting     String?
+  soundproof          String?
+  window              String?
+  ventilationFacility String?
+  waterPressure       String?
+  drainage            String?
+  drainSmell          String?
+  lighting            String?
+  ceilingFloor        String?
+  kitchenTile         Boolean   @default(false)
+  toiletTile          Boolean   @default(false)
+  entranceTile        Boolean   @default(false)
+  waterLeak           String?
+  mold                String?
+  appraisal           String?
+  photos              Photo[]
+  created_at          DateTime  @default(now())
+  updated_at          DateTime  @updatedAt
+}
+
+model Photo {
+  id          Int      @id @default(autoincrement())
+  url         String
+  description String
+  property    Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  propertyId  Int
 }

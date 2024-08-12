@@ -52,6 +52,18 @@ export default function PropertyAddPage() {
           <div className="collapse-content flex flex-col gap-2.5">
             <div className="flex flex-col gap-2.5 px-2.5">
               <span className="divider divider-start text-center text-xl font-bold">
+                0. 이름
+              </span>
+              <label className="flex w-full flex-col gap-1">
+                <input
+                  name="propertyName"
+                  type="text"
+                  className="input input-bordered"
+                />
+              </label>
+            </div>
+            <div className="flex flex-col gap-2.5 px-2.5">
+              <span className="divider divider-start text-center text-xl font-bold">
                 1. 가격
               </span>
               <div className="flex flex-col gap-1">
@@ -59,8 +71,8 @@ export default function PropertyAddPage() {
                 <div className="flex items-center justify-center gap-2">
                   <label className="w-full">
                     <input
-                      name="radioType"
-                      value="dealing"
+                      name="transactionType"
+                      value="sale"
                       type="radio"
                       className="peer hidden"
                     />
@@ -70,7 +82,7 @@ export default function PropertyAddPage() {
                   </label>
                   <label className="w-full">
                     <input
-                      name="radioType"
+                      name="transactionType"
                       value="lease"
                       type="radio"
                       className="peer hidden"
@@ -81,7 +93,7 @@ export default function PropertyAddPage() {
                   </label>
                   <label className="w-full">
                     <input
-                      name="radioType"
+                      name="transactionType"
                       value="monthlyRent"
                       type="radio"
                       className="peer hidden"
@@ -307,7 +319,11 @@ export default function PropertyAddPage() {
               </div>
               <label className="flex w-full flex-col gap-1">
                 <span className="text-lg font-bold">기타</span>
-                <input type="text" className="input input-bordered" />
+                <input
+                  name="etcFee"
+                  type="text"
+                  className="input input-bordered"
+                />
               </label>
             </div>
             <div className="flex flex-col gap-2.5 px-2.5">
@@ -465,8 +481,12 @@ export default function PropertyAddPage() {
               <span className="divider divider-start text-center text-xl font-bold">
                 13. 방음
               </span>
-              <label nonce="soundproof" className="flex flex-col gap-1">
-                <input type="text" className="input input-bordered" />
+              <label className="flex flex-col gap-1">
+                <input
+                  name="soundproof"
+                  type="text"
+                  className="input input-bordered"
+                />
               </label>
             </div>
             <div className="flex flex-col gap-2.5 px-2.5">

@@ -1,7 +1,13 @@
 "use client";
 
-import { BuildingOffice2Icon as OutlineBuildingIcon } from "@heroicons/react/24/outline";
-import { BuildingOffice2Icon as SolidBuildingIcon } from "@heroicons/react/24/solid";
+import {
+  BuildingOffice2Icon as OutlineBuildingIcon,
+  UserIcon as OutlineUserIcon,
+} from "@heroicons/react/24/outline";
+import {
+  BuildingOffice2Icon as SolidBuildingIcon,
+  UserIcon as SolidUserIcon,
+} from "@heroicons/react/24/solid";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -17,19 +23,19 @@ export default function TabBar() {
     },
     {
       path: "/profile",
-      unClickedIcon: OutlineBuildingIcon,
-      clickedIcon: SolidBuildingIcon,
+      unClickedIcon: OutlineUserIcon,
+      clickedIcon: SolidUserIcon,
       title: "마이페이지",
     },
   ];
 
   return (
-    <div className="btm-nav mx-auto max-w-screen-md">
+    <div className="btm-nav mx-auto max-w-screen-md bg-base-200">
       {tabs.map((tab, index) => (
         <Link
           key={index}
           href={tab.path}
-          className={pathname === tab.path ? "active" : ""}
+          className={pathname === tab.path ? "border-t-2" : ""}
         >
           {pathname === tab.path ? (
             <tab.clickedIcon className="size-5" />
