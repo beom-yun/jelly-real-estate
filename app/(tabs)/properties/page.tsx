@@ -13,7 +13,6 @@ export default async function PropertiesPage() {
       photos: { select: { id: true, url: true, description: true } },
     },
   });
-  console.log(properties);
 
   return (
     <div className="flex flex-col p-5">

@@ -16,7 +16,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" data-theme="bumblebee">
-      <body className={`${inter.className} mx-auto max-w-screen-md`}>
+      <body
+        className={`${inter.className} mx-auto max-w-screen-md`}
+        suppressHydrationWarning={true}
+      >
         {children}
       </body>
     </html>
