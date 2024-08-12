@@ -1,10 +1,11 @@
 "use server";
 
+import db from "@/lib/db";
 import { z } from "zod";
 
 const propertyAddSchema = z.object({
-  propertyName: z.string({ required_error: "이름 필수" }), // 이름
-  transactionType: z.string({ required_error: "거래 분류 필수" }), // 분류
+  propertyName: z.string({ required_error: "이름을 입력해주세요." }), // 이름
+  transactionType: z.string({ required_error: "거래 분류를 선택해주세요." }), // 분류
   deposit: z.coerce.number().optional(), // 보증금
   maintenanceCost: z.coerce.number().optional(), // 관리비
   address: z.string().optional(), // 주소
@@ -106,7 +107,10 @@ export async function PropertyAddAction(prevState: any, formData: FormData) {
     mold: formData.get("mold") || undefined,
     appraisal: formData.get("appraisal") || undefined,
   };
-  console.log(data);
   const result = await propertyAddSchema.safeParseAsync(data);
-  console.log(result.error?.flatten());
+  if (result.success) {
+    console.log("success");
+  } else {
+    return result.error.flatten();
+  }
 }

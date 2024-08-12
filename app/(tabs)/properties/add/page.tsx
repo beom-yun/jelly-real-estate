@@ -64,8 +64,13 @@ export default function PropertyAddPage() {
                   <input
                     name="propertyName"
                     type="text"
-                    className="input input-bordered"
+                    className={`input input-bordered ${state?.fieldErrors.propertyName ? "input-error" : null}`}
                   />
+                  {state?.fieldErrors.propertyName ? (
+                    <span className="text-base text-red-500">
+                      {state.fieldErrors.propertyName}
+                    </span>
+                  ) : null}
                 </label>
               </div>
               <div className="flex flex-col gap-2.5 px-2.5">
@@ -82,7 +87,9 @@ export default function PropertyAddPage() {
                         type="radio"
                         className="peer hidden"
                       />
-                      <div className="btn w-full bg-base-100 peer-checked:bg-base-300">
+                      <div
+                        className={`btn w-full bg-base-100 peer-checked:bg-base-300 ${state?.fieldErrors.transactionType ? "btn-error" : null}`}
+                      >
                         매매
                       </div>
                     </label>
@@ -93,7 +100,9 @@ export default function PropertyAddPage() {
                         type="radio"
                         className="peer hidden"
                       />
-                      <div className="btn w-full bg-base-100 peer-checked:bg-base-300">
+                      <div
+                        className={`btn w-full bg-base-100 peer-checked:bg-base-300 ${state?.fieldErrors.transactionType ? "btn-error" : null}`}
+                      >
                         전세
                       </div>
                     </label>
@@ -104,11 +113,18 @@ export default function PropertyAddPage() {
                         type="radio"
                         className="peer hidden"
                       />
-                      <div className="btn w-full bg-base-100 peer-checked:bg-base-300">
+                      <div
+                        className={`btn w-full bg-base-100 peer-checked:bg-base-300 ${state?.fieldErrors.transactionType ? "bg- btn-error" : null}`}
+                      >
                         월세
                       </div>
                     </label>
                   </div>
+                  {state?.fieldErrors.transactionType ? (
+                    <span className="text-base text-red-500">
+                      {state.fieldErrors.transactionType}
+                    </span>
+                  ) : null}
                 </div>
                 <label className="flex flex-col gap-1">
                   <span className="text-lg font-bold">보증금</span>
