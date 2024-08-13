@@ -9,7 +9,7 @@ export default function Home() {
         <span>이렇게</span>
         <span>쉬웠어?</span>
       </div>
-      <Link href="/properties" className="btn w-full">
+      <Link href="/log-in" className="btn w-full">
         시작하기
       </Link>
     </div>
