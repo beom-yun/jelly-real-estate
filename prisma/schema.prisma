@@ -8,14 +8,15 @@ datasource db {
 }
 
 model User {
-  id         Int      @id @default(autoincrement())
-  username   String   @unique
-  email      String?  @unique
+  id         Int        @id @default(autoincrement())
+  username   String     @unique
+  email      String?    @unique
   password   String?
-  phone      String?  @unique
+  phone      String?    @unique
   avatar     String?
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  Property   Property[]
+  created_at DateTime   @default(now())
+  updated_at DateTime   @updatedAt
 }
 
 model Property {
@@ -26,7 +27,7 @@ model Property {
   maintenanceCost     Int?
   address             String?
   year                String?
-  CommonArea          Int?
+  commonArea          Int?
   dedicatedArea       Int?
   livingRoom          String?
   room                String?
@@ -42,7 +43,7 @@ model Property {
   waterFee            Boolean   @default(false)
   cleaningFee         Boolean   @default(false)
   parkingFee          Boolean   @default(false)
-  etcFee              Boolean   @default(false)
+  etcFee              String?
   moveInDate          DateTime?
   option              String?
   airConditioner      Boolean   @default(false)
@@ -70,6 +71,8 @@ model Property {
   mold                String?
   appraisal           String?
   photos              Photo[]
+  user                User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId              Int
   created_at          DateTime  @default(now())
   updated_at          DateTime  @updatedAt
 }

@@ -62,14 +62,17 @@ CREATE TABLE "Property" (
     "waterLeak" TEXT,
     "mold" TEXT,
     "appraisal" TEXT,
+    "userId" INTEGER NOT NULL,
     "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" DATETIME NOT NULL
+    "updated_at" DATETIME NOT NULL,
+    CONSTRAINT "Property_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- CreateTable
 CREATE TABLE "Photo" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "url" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
     "propertyId" INTEGER NOT NULL,
     CONSTRAINT "Photo_propertyId_fkey" FOREIGN KEY ("propertyId") REFERENCES "Property" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 );

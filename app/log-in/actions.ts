@@ -18,7 +18,7 @@ const loginFormSchema = z.object({
   username: z
     .string()
     .toLowerCase()
-    .refine(checkUsernameExists, "해당 아이디가 없습니다."),
+    .refine(checkUsernameExists, "존재하지 않는 아이디입니다."),
   password: z.string(),
 });
 

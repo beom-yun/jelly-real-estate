@@ -1,6 +1,8 @@
 "use server";
 
 import db from "@/lib/db";
+import getSession from "@/lib/session";
+import { redirect } from "next/navigation";
 import { z } from "zod";
 
 const propertyAddSchema = z.object({
@@ -10,8 +12,8 @@ const propertyAddSchema = z.object({
   maintenanceCost: z.coerce.number().optional(), // 관리비
   address: z.string().optional(), // 주소
   year: z.string().optional(), // 연식
-  commonArea: z.string().optional(), // 공용(평수)
-  dedicatedArea: z.string().optional(), // 전용(평수)
+  commonArea: z.coerce.number().optional(), // 공용(평수)
+  dedicatedArea: z.coerce.number().optional(), // 전용(평수)
   livingRoom: z.string().optional(), // 거실
   room: z.string().optional(), // 방
   toilet: z.string().optional(), // 화장실
@@ -109,8 +111,65 @@ export async function PropertyAddAction(prevState: any, formData: FormData) {
   };
   const result = await propertyAddSchema.safeParseAsync(data);
   if (result.success) {
-    console.log("success");
+    const session = await getSession();
+    const newProperty = await db.property.create({
+      data: {
+        user: { connect: { id: session.id } },
+        propertyName: result.data.propertyName,
+        transactionType: result.data.transactionType,
+        deposit: result.data.deposit,
+        maintenanceCost: result.data.maintenanceCost,
+        address: result.data.address,
+        year: result.data.year,
+        commonArea: result.data.commonArea,
+        dedicatedArea: result.data.dedicatedArea,
+        livingRoom: result.data.livingRoom,
+        room: result.data.room,
+        toilet: result.data.toilet,
+        veranda: result.data.veranda,
+        parkingLot: result.data.parkingLot,
+        etc: result.data.etc,
+        loanAvailability: result.data.loanAvailability,
+        moveInAvailability: result.data.moveInAvailability,
+        contractPeriod: result.data.contractPeriod,
+        gasFee: result.data.gasFee,
+        electricityFee: result.data.electricityFee,
+        waterFee: result.data.waterFee,
+        cleaningFee: result.data.cleaningFee,
+        parkingFee: result.data.parkingFee,
+        etcFee: result.data.etcFee,
+        moveInDate: result.data.moveInDate,
+        option: result.data.option,
+        airConditioner: result.data.airConditioner,
+        boiler: result.data.boiler,
+        warmWater: result.data.warmWater,
+        generalWaste: result.data.generalWaste,
+        foodWaste: result.data.foodWaste,
+        recyclableWaste: result.data.recyclableWaste,
+        commonEntrance: result.data.commonEntrance,
+        cctv: result.data.cctv,
+        securityOffice: result.data.securityOffice,
+        naturalLighting: result.data.naturalLighting,
+        soundproof: result.data.soundproof,
+        window: result.data.window,
+        ventilationFacility: result.data.ventilationFacility,
+        waterPressure: result.data.waterPressure,
+        drainage: result.data.drainage,
+        drainSmell: result.data.drainSmell,
+        lighting: result.data.lighting,
+        ceilingFloor: result.data.ceilingFloor,
+        kitchenTile: result.data.kitchenTile,
+        toiletTile: result.data.toiletTile,
+        entranceTile: result.data.entranceTile,
+        waterLeak: result.data.waterLeak,
+        mold: result.data.mold,
+        appraisal: result.data.appraisal,
+      },
+      select: { id: true },
+    });
+    redirect(`/properties/${newProperty.id}`);
   } else {
+    console.log(result.error.flatten());
     return result.error.flatten();
   }
 }
