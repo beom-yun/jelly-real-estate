@@ -169,7 +169,6 @@ export async function PropertyAddAction(prevState: any, formData: FormData) {
     });
     redirect(`/properties/${newProperty.id}`);
   } else {
-    console.log(result.error.flatten());
     return result.error.flatten();
   }
 }
