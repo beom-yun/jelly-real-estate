@@ -28,7 +28,7 @@ export default function ListProperty({
       className="flex gap-5 rounded-box p-2.5 transition-all hover:bg-base-200"
     >
       {photos.length !== 0 ? (
-        <div className="relative size-28 overflow-hidden rounded-box">
+        <div className="relative size-28 shrink-0 overflow-hidden rounded-box">
           <Image
             fill
             src={photos[0].url}
@@ -37,12 +37,41 @@ export default function ListProperty({
           />
         </div>
       ) : (
-        <div className="size-28 rounded-box bg-accent" />
+        <div className="size-28 shrink-0 rounded-box bg-accent" />
       )}
-      <div className="flex flex-col">
-        <span className="text-2xl font-bold">{title}</span>
-        <span>{address}</span>
-        <span>{transactionType}</span>
+      <div className="flex w-full justify-between">
+        <div className="flex flex-col">
+          <span className="text-2xl font-bold">{title}</span>
+          <span>{address}</span>
+          <span>{transactionType}</span>
+        </div>
+        <div className="rating items-center px-5">
+          <input
+            type="radio"
+            name="rating-2"
+            className="mask mask-star-2 bg-orange-400"
+          />
+          <input
+            type="radio"
+            name="rating-2"
+            className="mask mask-star-2 bg-orange-400"
+          />
+          <input
+            type="radio"
+            name="rating-2"
+            className="mask mask-star-2 bg-orange-400"
+          />
+          <input
+            type="radio"
+            name="rating-2"
+            className="mask mask-star-2 bg-orange-400"
+          />
+          <input
+            type="radio"
+            name="rating-2"
+            className="mask mask-star-2 bg-orange-400"
+          />
+        </div>
       </div>
     </Link>
   );

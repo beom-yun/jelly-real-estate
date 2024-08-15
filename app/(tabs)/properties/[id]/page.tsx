@@ -1,5 +1,7 @@
 import db from "@/lib/db";
 import { getIsOwner } from "@/lib/getIsOwner";
+import Image from "next/image";
+import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 
 export default async function PropertyDetailPage({
@@ -12,6 +14,7 @@ export default async function PropertyDetailPage({
 
   const property = await db.property.findUnique({
     where: { id: +params.id },
+    include: { photos: { select: { id: true, url: true, description: true } } },
   });
   if (!property) return notFound();
 
@@ -444,12 +447,11 @@ export default async function PropertyDetailPage({
         />
         <div role="tabpanel" className="tab-content pt-5">
           <textarea
-            className="textarea textarea-bordered h-[50vh] w-full"
+            className="textarea textarea-bordered min-h-[50vh] w-full"
             placeholder="최종평가"
             readOnly
-          >
-            {property.appraisal}
-          </textarea>
+            defaultValue={property.appraisal as string}
+          />
         </div>
 
         <input
@@ -459,7 +461,31 @@ export default async function PropertyDetailPage({
           className="tab"
           aria-label="사진"
         />
-        <div role="tabpanel" className="tab-content"></div>
+        <div role="tabpanel" className="tab-content">
+          {property.photos.length !== 0 ? (
+            <div className="grid grid-cols-2 gap-2.5 py-5">
+              {property.photos.map((photo) => (
+                <Link
+                  href="#"
+                  key={photo.id}
+                  className="relative aspect-square overflow-hidden rounded-box transition-all hover:scale-105 hover:brightness-110"
+                >
+                  <Image
+                    key={photo.id}
+                    src={photo.url}
+                    alt={photo.description}
+                    fill
+                    className="object-cover"
+                  />
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <div className="w-full pt-5 text-center text-2xl font-bold">
+              등록된 사진이 없습니다.
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
