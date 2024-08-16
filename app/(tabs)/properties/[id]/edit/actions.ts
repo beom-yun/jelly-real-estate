@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import { z } from "zod";
 
 const propertyEditSchema = z.object({
+  propertyName: z.string({ required_error: "이름은 필수 입력입니다." }),
   transactionType: z.string({ required_error: "거래 분류를 선택해주세요." }), // 분류
   deposit: z.coerce.number().optional(), // 보증금
   maintenanceCost: z.coerce.number().optional(), // 관리비
@@ -61,6 +62,7 @@ export async function PropertyEditAction(
   formData: FormData,
 ) {
   const data = {
+    propertyName: formData.get("propertyName") || undefined,
     transactionType: formData.get("transactionType") || undefined,
     deposit: formData.get("deposit") || undefined,
     maintenanceCost: formData.get("maintenanceCost") || undefined,
@@ -117,6 +119,7 @@ export async function PropertyEditAction(
   const updatedProperty = await db.property.update({
     where: { id: +prevState.propertyId },
     data: {
+      propertyName: result.data.propertyName,
       transactionType: result.data.transactionType,
       deposit: result.data.deposit,
       maintenanceCost: result.data.maintenanceCost,
@@ -168,6 +171,6 @@ export async function PropertyEditAction(
     },
     select: { id: true },
   });
-  // redirect(`/properties/${updatedProperty.id}`);
+  redirect(`/properties/${updatedProperty.id}`);
   return { propertyId: prevState.propertyId };
 }

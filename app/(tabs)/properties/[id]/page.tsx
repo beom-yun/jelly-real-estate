@@ -21,8 +21,6 @@ export default async function PropertyDetailPage({
   const isOwner = await getIsOwner(property.userId);
   if (!isOwner) redirect(`/properties`);
 
-  console.log(property);
-
   return (
     <div className="flex flex-col p-2.5">
       <span className="p-2.5 text-4xl font-extrabold">
@@ -461,9 +459,9 @@ export default async function PropertyDetailPage({
           className="tab"
           aria-label="사진"
         />
-        <div role="tabpanel" className="tab-content">
+        <div role="tabpanel" className="tab-content pt-5">
           {property.photos.length !== 0 ? (
-            <div className="grid grid-cols-2 gap-2.5 py-5">
+            <div className="grid grid-cols-2 gap-2.5">
               {property.photos.map((photo) => (
                 <Link
                   href="#"
@@ -481,10 +479,26 @@ export default async function PropertyDetailPage({
               ))}
             </div>
           ) : (
-            <div className="w-full pt-5 text-center text-2xl font-bold">
+            <div className="w-full text-center text-2xl font-bold">
               등록된 사진이 없습니다.
             </div>
           )}
+        </div>
+
+        <input
+          type="radio"
+          name="propertyTab"
+          role="tab"
+          className="tab"
+          aria-label="기타"
+        />
+        <div role="tabpanel" className="tab-content pt-5">
+          <Link
+            href={`/properties/${params.id}/edit`}
+            className="btn btn-accent w-full"
+          >
+            수정하기
+          </Link>
         </div>
       </div>
     </div>
