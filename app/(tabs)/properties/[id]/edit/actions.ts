@@ -174,3 +174,46 @@ export async function PropertyEditAction(
   redirect(`/properties/${updatedProperty.id}`);
   return { propertyId: prevState.propertyId };
 }
+
+export async function getUploadUrl() {
+  const response = await fetch(
+    `https://api.cloudflare.com/client/v4/accounts/${process.env.CLOUDFLARE_ACCOUNT_ID}/images/v2/direct_upload`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${process.env.CLOUDFLARE_API_KEY}`,
+        // "Content-Type": "multipart/form-data",
+      },
+    },
+  );
+  return await response.json();
+}
+
+export async function createPhoto(
+  cloudflareForm: FormData,
+  propertyId: number,
+) {
+  const { success, result } = await getUploadUrl();
+  if (success) {
+    const { id, uploadURL } = result;
+
+    const response = await fetch(uploadURL, {
+      method: "post",
+      body: cloudflareForm,
+    });
+    if (response.status !== 200) return;
+    const photoUrl = `https://imagedelivery.net/X0hK0a8FJJvNCyeUtIVOrA/${id}/public`;
+    const newPhoto = await db.photo.create({
+      data: {
+        url: photoUrl,
+        description: "",
+        property: { connect: { id: propertyId } },
+      },
+      select: { id: true, url: true, description: true },
+    });
+    return newPhoto;
+  }
+
+  // const newPhotoList = [...photoList, { url: "", description: "" }];
+  // setPhotoList(newPhotoList);
+}

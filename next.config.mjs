@@ -5,7 +5,10 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "img.daisyui.com",
-        port: "",
+      },
+      {
+        protocol: "https",
+        hostname: "imagedelivery.net",
       },
     ],
   },

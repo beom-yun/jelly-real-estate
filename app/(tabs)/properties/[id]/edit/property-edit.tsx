@@ -4,9 +4,10 @@ import { getFormattedDate } from "@/lib/utils";
 import { PlusIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import { useFormState } from "react-dom";
-import { PropertyEditAction } from "./actions";
+import { createPhoto, getUploadUrl, PropertyEditAction } from "./actions";
+import { useState } from "react";
 
-interface IPhoto {
+export interface IPhoto {
   id: number;
   url: string;
   description: string;
@@ -77,6 +78,26 @@ export default function PropertyEditForm({
   const [state, dispatch] = useFormState(PropertyEditAction, {
     propertyId: property.id + "",
   });
+  const [photoList, setPhotoList] = useState<IPhoto[]>(property.photos);
+  const addPhoto = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const {
+      target: { files },
+    } = event;
+    if (!files) return;
+
+    for (let i = 0; i < files.length; i++) {
+      const cloudflareForm = new FormData();
+      cloudflareForm.append("file", files[i]);
+      const newPhoto = await createPhoto(cloudflareForm, property.id);
+      if (newPhoto) {
+        const newPhotoList = [...photoList, newPhoto];
+        setPhotoList(newPhotoList);
+      }
+    }
+  };
+  const deletePhoto = (index: number) => {
+    console.log(`${photoList[index].id} clicked!`);
+  };
 
   return (
     <div className="flex flex-col gap-10 p-5">
@@ -415,7 +436,11 @@ export default function PropertyEditForm({
                     name="moveInDate"
                     type="date"
                     className="input input-bordered"
-                    defaultValue={getFormattedDate(property.moveInDate as Date)}
+                    defaultValue={
+                      property.moveInDate
+                        ? getFormattedDate(property.moveInDate as Date)
+                        : ""
+                    }
                   />
                 </label>
               </div>
@@ -763,33 +788,48 @@ export default function PropertyEditForm({
             <span className="collapse-title">사진</span>
             <div className="collapse-content flex flex-col gap-2.5 overflow-hidden">
               <div className="carousel rounded-box">
-                {property.photos.map((image) => (
-                  <div
-                    key={image.id}
-                    className="carousel-item relative size-[200px] overflow-hidden"
-                  >
-                    <Image
-                      src={image.url}
-                      alt={image.description}
-                      width={200}
-                      height={200}
-                      className="object-cover"
+                {photoList.map((photo, index) => (
+                  <div key={index} className="flex flex-col border-2">
+                    <div className="carousel-item relative size-[200px] overflow-hidden">
+                      <Image
+                        src={photo.url}
+                        alt={photo.description}
+                        fill
+                        sizes="50vw"
+                        className="object-cover"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => deletePhoto(index)}
+                        className="btn btn-circle btn-ghost btn-sm absolute right-2 top-2"
+                      >
+                        <XMarkIcon className="size-5" />
+                      </button>
+                    </div>
+                    <input
+                      name="photoDescription"
+                      type="text"
+                      className="bg-secondary py-2 text-center text-base outline-none"
+                      defaultValue={photo.description}
                     />
-                    <button className="btn btn-circle btn-ghost btn-sm absolute right-2 top-2">
-                      <XMarkIcon className="size-5" />
-                    </button>
                   </div>
                 ))}
               </div>
-              <button className="btn btn-accent">
+              <label className="btn btn-accent">
+                <input
+                  type="file"
+                  onChange={addPhoto}
+                  className="hidden"
+                  multiple
+                />
                 <PlusIcon className="size-5" />
                 <span>사진 추가하기</span>
-              </button>
+              </label>
             </div>
           </div>
         </div>
 
-        <button className="btn bg-accent/50">반영하기</button>
+        <button className="btn bg-accent">반영하기</button>
       </form>
     </div>
   );

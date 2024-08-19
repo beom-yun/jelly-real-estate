@@ -19,6 +19,7 @@ export default async function PropertiesPage() {
 
   return (
     <div className="flex flex-col p-5">
+      <span className="pb-5 text-4xl font-extrabold">내 리스트</span>
       {properties.length !== 0 ? (
         properties.map((property) => (
           <ListProperty
