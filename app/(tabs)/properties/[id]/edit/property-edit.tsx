@@ -4,7 +4,7 @@ import { getFormattedDate } from "@/lib/utils";
 import { PlusIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import { useFormState } from "react-dom";
-import { createPhoto, getUploadUrl, PropertyEditAction } from "./actions";
+import { createPhoto, deletePhotoAction, PropertyEditAction } from "./actions";
 import { useState } from "react";
 
 export interface IPhoto {
@@ -95,13 +95,21 @@ export default function PropertyEditForm({
       }
     }
   };
-  const deletePhoto = (index: number) => {
-    console.log(`${photoList[index].id} clicked!`);
+  const deletePhoto = async (index: number) => {
+    const photoForm = new FormData();
+    photoForm.append("id", photoList[index].id + "");
+    await deletePhotoAction(photoForm);
+    const newPhotoList = photoList.filter(
+      (photo) => photo.id !== photoList[index].id,
+    );
+    setPhotoList(newPhotoList);
   };
 
   return (
     <div className="flex flex-col gap-10 p-5">
-      <span className="text-4xl font-bold">부동산 수정하기</span>
+      <span className="text-4xl font-bold">
+        {property.propertyName} 수정하기
+      </span>
 
       <form action={dispatch} className="flex flex-col gap-5">
         <div className="join join-vertical">

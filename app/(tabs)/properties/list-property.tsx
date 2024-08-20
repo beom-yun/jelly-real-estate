@@ -31,6 +31,8 @@ export default function ListProperty({
         <div className="relative size-28 shrink-0 overflow-hidden rounded-box">
           <Image
             fill
+            sizes="50vw"
+            priority
             src={photos[0].url}
             alt={photos[0].description}
             className="object-cover"

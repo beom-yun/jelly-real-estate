@@ -1,7 +1,6 @@
 "use server";
 
 import db from "@/lib/db";
-import getSession from "@/lib/session";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 
@@ -56,6 +55,7 @@ const propertyEditSchema = z.object({
   mold: z.string().optional(), // 곰팡이
   appraisal: z.string().optional(), // 최종평가
 });
+const photoEditSchema = z.string();
 
 export async function PropertyEditAction(
   prevState: { propertyId: string },
@@ -115,7 +115,6 @@ export async function PropertyEditAction(
   const result = await propertyEditSchema.safeParseAsync(data);
   if (!result.success)
     return { propertyId: prevState.propertyId, error: result.error.flatten() };
-  const session = await getSession();
   const updatedProperty = await db.property.update({
     where: { id: +prevState.propertyId },
     data: {
@@ -171,6 +170,22 @@ export async function PropertyEditAction(
     },
     select: { id: true },
   });
+
+  const photos = await db.photo.findMany({
+    where: { propertyId: +prevState.propertyId },
+    select: { id: true },
+  });
+  const photoData = formData.getAll("photoDescription");
+  photos.map(async (photo, index) => {
+    const result = photoEditSchema.safeParse(photoData[index]);
+    if (result.success) {
+      await db.photo.update({
+        where: { id: photo.id },
+        data: { description: result.data },
+        select: { id: true },
+      });
+    }
+  });
   redirect(`/properties/${updatedProperty.id}`);
   return { propertyId: prevState.propertyId };
 }
@@ -213,7 +228,10 @@ export async function createPhoto(
     });
     return newPhoto;
   }
+}
 
-  // const newPhotoList = [...photoList, { url: "", description: "" }];
-  // setPhotoList(newPhotoList);
+export async function deletePhotoAction(formData: FormData) {
+  await db.photo.delete({
+    where: { id: +formData.get("id")! },
+  });
 }

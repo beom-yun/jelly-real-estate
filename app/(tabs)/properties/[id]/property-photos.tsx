@@ -19,6 +19,7 @@ export default function PropertyPhotos({ photos }: { photos: IPhoto[] }) {
                 src={photo.url}
                 alt={photo.description}
                 fill
+                sizes="50vw"
                 className="object-cover"
               />
             </button>
