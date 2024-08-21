@@ -1,13 +1,17 @@
-/*
-  Warnings:
+-- CreateTable
+CREATE TABLE "User" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "username" TEXT NOT NULL,
+    "email" TEXT,
+    "password" TEXT,
+    "phone" TEXT,
+    "avatar" TEXT,
+    "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" DATETIME NOT NULL
+);
 
-  - You are about to drop the column `CommonArea` on the `Property` table. All the data in the column will be lost.
-
-*/
--- RedefineTables
-PRAGMA defer_foreign_keys=ON;
-PRAGMA foreign_keys=OFF;
-CREATE TABLE "new_Property" (
+-- CreateTable
+CREATE TABLE "Property" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "propertyName" TEXT NOT NULL,
     "transactionType" TEXT NOT NULL DEFAULT 'sale',
@@ -63,8 +67,21 @@ CREATE TABLE "new_Property" (
     "updated_at" DATETIME NOT NULL,
     CONSTRAINT "Property_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 );
-INSERT INTO "new_Property" ("address", "airConditioner", "appraisal", "boiler", "cctv", "ceilingFloor", "cleaningFee", "commonEntrance", "contractPeriod", "created_at", "dedicatedArea", "deposit", "drainSmell", "drainage", "electricityFee", "entranceTile", "etc", "etcFee", "foodWaste", "gasFee", "generalWaste", "id", "kitchenTile", "lighting", "livingRoom", "loanAvailability", "maintenanceCost", "mold", "moveInAvailability", "moveInDate", "naturalLighting", "option", "parkingFee", "parkingLot", "propertyName", "recyclableWaste", "room", "securityOffice", "soundproof", "toilet", "toiletTile", "transactionType", "updated_at", "userId", "ventilationFacility", "veranda", "warmWater", "waterFee", "waterLeak", "waterPressure", "window", "year") SELECT "address", "airConditioner", "appraisal", "boiler", "cctv", "ceilingFloor", "cleaningFee", "commonEntrance", "contractPeriod", "created_at", "dedicatedArea", "deposit", "drainSmell", "drainage", "electricityFee", "entranceTile", "etc", "etcFee", "foodWaste", "gasFee", "generalWaste", "id", "kitchenTile", "lighting", "livingRoom", "loanAvailability", "maintenanceCost", "mold", "moveInAvailability", "moveInDate", "naturalLighting", "option", "parkingFee", "parkingLot", "propertyName", "recyclableWaste", "room", "securityOffice", "soundproof", "toilet", "toiletTile", "transactionType", "updated_at", "userId", "ventilationFacility", "veranda", "warmWater", "waterFee", "waterLeak", "waterPressure", "window", "year" FROM "Property";
-DROP TABLE "Property";
-ALTER TABLE "new_Property" RENAME TO "Property";
-PRAGMA foreign_keys=ON;
-PRAGMA defer_foreign_keys=OFF;
+
+-- CreateTable
+CREATE TABLE "Photo" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "url" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
+    "propertyId" INTEGER NOT NULL,
+    CONSTRAINT "Photo_propertyId_fkey" FOREIGN KEY ("propertyId") REFERENCES "Property" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_username_key" ON "User"("username");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_phone_key" ON "User"("phone");
