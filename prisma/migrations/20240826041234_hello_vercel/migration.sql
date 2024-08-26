@@ -1,18 +1,20 @@
 -- CreateTable
 CREATE TABLE "User" (
-    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "id" SERIAL NOT NULL,
     "username" TEXT NOT NULL,
     "email" TEXT,
     "password" TEXT,
     "phone" TEXT,
     "avatar" TEXT,
-    "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" DATETIME NOT NULL
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Property" (
-    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "id" SERIAL NOT NULL,
     "propertyName" TEXT NOT NULL,
     "transactionType" TEXT NOT NULL DEFAULT 'sale',
     "deposit" INTEGER,
@@ -36,7 +38,7 @@ CREATE TABLE "Property" (
     "cleaningFee" BOOLEAN NOT NULL DEFAULT false,
     "parkingFee" BOOLEAN NOT NULL DEFAULT false,
     "etcFee" TEXT,
-    "moveInDate" DATETIME,
+    "moveInDate" TIMESTAMP(3),
     "option" TEXT,
     "airConditioner" BOOLEAN NOT NULL DEFAULT false,
     "boiler" BOOLEAN NOT NULL DEFAULT false,
@@ -63,18 +65,20 @@ CREATE TABLE "Property" (
     "mold" TEXT,
     "appraisal" TEXT,
     "userId" INTEGER NOT NULL,
-    "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" DATETIME NOT NULL,
-    CONSTRAINT "Property_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Property_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Photo" (
-    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "id" SERIAL NOT NULL,
     "url" TEXT NOT NULL,
     "description" TEXT NOT NULL,
     "propertyId" INTEGER NOT NULL,
-    CONSTRAINT "Photo_propertyId_fkey" FOREIGN KEY ("propertyId") REFERENCES "Property" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+
+    CONSTRAINT "Photo_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -85,3 +89,9 @@ CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_phone_key" ON "User"("phone");
+
+-- AddForeignKey
+ALTER TABLE "Property" ADD CONSTRAINT "Property_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Photo" ADD CONSTRAINT "Photo_propertyId_fkey" FOREIGN KEY ("propertyId") REFERENCES "Property"("id") ON DELETE CASCADE ON UPDATE CASCADE;
